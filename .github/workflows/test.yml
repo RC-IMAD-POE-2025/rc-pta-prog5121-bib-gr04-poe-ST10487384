@@ -1,8 +1,8 @@
-name: Run JUnit5 Tests
+name: Run Maven JUnit5 Tests
 
 on:
   push:
-    branches: [ part1 ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 

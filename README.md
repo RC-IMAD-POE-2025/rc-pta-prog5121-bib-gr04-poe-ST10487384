@@ -60,8 +60,8 @@ Appears after successful login, exiting the app.
 - GitHub GUI/CLI
 
 ### Installation
-1. Clone the repo: `git clone https://github.com/yourusername/QuickChat.git`
-2. Switch to branch: `git checkout part1`
+1. Clone the repo: `https://github.com/RC-IMAD-POE-2025/rc-pta-prog5121-bib-gr04-poe-ST10487384`
+2. Switch to branch: `git checkout main`
 3. Open in NetBeans.
 4. Build and run: `mvn clean install` then `mvn exec:java`.
 
