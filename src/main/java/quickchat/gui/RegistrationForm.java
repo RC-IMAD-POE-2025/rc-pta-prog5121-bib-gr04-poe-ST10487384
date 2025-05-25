@@ -1,4 +1,5 @@
-package quickchat;
+package quickchat.gui;
+import quickchat.core.*;
 
 import javax.swing.JOptionPane;
 
@@ -68,6 +69,8 @@ public class RegistrationForm extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(960, 540));
 
         jPanel2.setBackground(new java.awt.Color(7, 94, 84));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -210,7 +213,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
         jTextArea1.setRows(5);
-        jTextArea1.setText("Welcome to QuickChat v1!\n\nPlease create a new account\nby entering your credentials.");
+        jTextArea1.setText("Welcome to QuickChat v2!\n\nPlease create a new account\nby entering your credentials.");
         jTextArea1.setFocusable(false);
         jScrollPane3.setViewportView(jTextArea1);
 
@@ -229,7 +232,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
+                .addContainerGap(138, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,38 +277,42 @@ public class RegistrationForm extends javax.swing.JFrame {
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
        
         // Collect raw input from GUI fields
-        String username = usernameField.getText();
-        String password = new String(passwordField.getPassword());
-        String cellphone = cellphoneField.getText();
-        String firstName = firstnameField.getText();
-        String lastName = lastnameField.getText();
+    String username = usernameField.getText();
+    String password = new String(passwordField.getPassword());
+    String cellphone = cellphoneField.getText();
+    String firstName = firstnameField.getText();
+    String lastName = lastnameField.getText();
 
-        // Pass inputs to registerUser for validation and messaging
-        String[] result = REGISTRATION.registerUser(username, password, cellphone, firstName, lastName);
+    // Pass inputs to registerUser for validation and messaging
+    String[] result = REGISTRATION.registerUser(username, password, cellphone, firstName, lastName);
 
-        // Check if registration was fully successful using getters and final message
-        boolean allCaptured = REGISTRATION.getUserName() != null &&
-                              REGISTRATION.getPassword() != null &&
-                              REGISTRATION.getCellPhoneNumber() != null &&
-                              REGISTRATION.getFirstName() != null &&
-                              REGISTRATION.getLastName() != null &&
-                              "Registration Successful".equals(result[5]); // Check final message
+    // Check if registration was fully successful using getters and final message
+    boolean allCaptured = REGISTRATION.getUserName() != null &&
+                         REGISTRATION.getPassword() != null &&
+                         REGISTRATION.getCellPhoneNumber() != null &&
+                         REGISTRATION.getFirstName() != null &&
+                         REGISTRATION.getLastName() != null &&
+                         result.length == 1 && "You have been successfully registered".equals(result[0]);
 
-        // Display all messages (success or errors + final status)
-        String feedback = String.join("\n", result);
+    // Display all messages (success or errors + final status)
+    StringBuilder feedback = new StringBuilder();
+    for (String message : result) 
+    {
+        feedback.append(message).append("\n");
+    }
 
-        if (allCaptured)
-        {
-            // Show success dialog and switch forms
-            JOptionPane.showMessageDialog(this, feedback, "Registration Successful", JOptionPane.INFORMATION_MESSAGE);
-            QUICK_CHAT.showLoginForm(); // Show LoginForm
-            this.dispose();             // Close RegistrationForm after dialog
-        }
-        else
-        {
-            // Show feedback dialog with errors and "Registration aborted"
-            JOptionPane.showMessageDialog(this, feedback, "Registration Failed", JOptionPane.ERROR_MESSAGE);
-        }
+    if (allCaptured)
+    {
+        // Show success dialog and switch forms
+        JOptionPane.showMessageDialog(this, feedback, "Registration Successful", JOptionPane.INFORMATION_MESSAGE);
+        QUICK_CHAT.showLoginForm(); // Show LoginForm
+        this.dispose();             // Close RegistrationForm after dialog
+    }
+    else
+    {
+        // Show feedback dialog with errors
+        JOptionPane.showMessageDialog(this, feedback, "Registration Failed", JOptionPane.ERROR_MESSAGE);
+    }
         
     }//GEN-LAST:event_registerButtonActionPerformed
 

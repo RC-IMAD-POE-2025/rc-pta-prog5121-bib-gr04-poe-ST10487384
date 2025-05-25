@@ -1,4 +1,5 @@
-package quickchat;
+package quickchat.gui;
+import quickchat.core.*;
 
 import javax.swing.JOptionPane;
 
@@ -149,7 +150,7 @@ public class LoginForm extends javax.swing.JFrame
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
         jTextArea1.setRows(5);
-        jTextArea1.setText("Welcome back to QuickChat v1!\n\nPlease verify your identity\nby entering your credentials.");
+        jTextArea1.setText("Welcome back to QuickChat v2!\n\nPlease verify your identity\nby entering your credentials.");
         jScrollPane3.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -167,7 +168,7 @@ public class LoginForm extends javax.swing.JFrame
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap(47, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

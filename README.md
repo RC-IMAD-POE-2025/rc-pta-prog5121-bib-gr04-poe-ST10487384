@@ -1,8 +1,8 @@
-# QuickChat - PROG5121 POE Part 1
+# QuickChat - PROG5121 POE Part 2
 
 **Author**: Tshedimosetso Wowana - ST10487384@rcconnect.edu.za
 
-QuickChat is a simple chat application developed for PROG5121 POE Part 1. Version 1.0.0 implements user registration and login functionality, with messaging planned for Part 2. Built using Java, Apache NetBeans 19, JDK 21, Maven, and JUnit5 for testing.
+QuickChat is a simple chat application developed for PROG5121 POE Part 2. Version 2.0.0 implements messaging. Built using Java, Apache NetBeans 19, JDK 21, Maven, and JUnit5 for testing.
 
 ## Features
 
@@ -22,8 +22,8 @@ QuickChat is a simple chat application developed for PROG5121 POE Part 1. Versio
 - **Feedback**: Success shows a "Messaging feature coming soon" placeholder; failure displays an error.
 - **Implementation**: `Login.java` handles verification; `LoginForm.java` manages the GUI.
 
-### Planned for Part 2
-- **Messaging**: Not included in Part 1; placeholder indicates future implementation.
+### Part 2
+- **Messaging**: Users can now send messages, store and disregard them
 
 ## Screenshots
 
@@ -66,7 +66,7 @@ Appears after successful login, exiting the app.
 4. Build and run: `mvn clean install` then `mvn exec:java`.
 
 ### Testing
-- Location: `RegistrationTest.java` in `testpackages` (24 tests).
+- Location: `RegistrationTest.java` in `testpackages`.
 - Run: `mvn test` or use NetBeans test runner.
 
 ## Project Structure
@@ -76,4 +76,4 @@ Appears after successful login, exiting the app.
 - **Screenshots**: `screenshots/` directory
 
 ## Version
-- **v1.0.0**: Initial release for POE Part 1, submitted April 11, 2025.
+- **v2.0.0**: submitted May 25, 2025.

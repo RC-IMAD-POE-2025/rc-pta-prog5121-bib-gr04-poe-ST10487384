@@ -1,4 +1,4 @@
-package quickchat;
+package quickchat.core;
 
 /**
  * A class responsible for handling user login functionality in the QuickChat application.
@@ -6,8 +6,8 @@ package quickchat;
  * Designed for Part 1 of the POE, with no persistent storage, relying on in-memory data.
  * 
  * @author Tshedimosetso Wowana
- * @version 1.0.0
- * @since 2025-04-01
+ * @version 1.0
+ * @since 2025-03-01
  */
 public class Login 
 {
