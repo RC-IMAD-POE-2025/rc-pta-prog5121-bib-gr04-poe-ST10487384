@@ -1,8 +1,6 @@
-package quickchat;
+package quickchat.core;
 
-
-import java.util.ArrayList; // I used it for dynamic success/error messages handling
-import java.util.regex.Pattern; // Used for regex validation in checkCellPhoneNumber (Grok 3 assisted)
+import java.util.regex.Pattern; // AI Assisted Regex checker
 
 /**
  * A class responsible for handling user registration in the QuickChat application.
@@ -11,7 +9,7 @@ import java.util.regex.Pattern; // Used for regex validation in checkCellPhoneNu
  * 
  * @author Tshedimosetso Wowana
  * @version 1.0.0
- * @since 2025-04-01
+ * @since 2025-03-01
  */
 public class Registration
 {
@@ -40,87 +38,62 @@ public class Registration
      * 
      * The `registerUser` method accepts five arguments: username, password, cellphone number, first name,
      * and last name. It invokes the respective setter methods that check if the inputs meet the required 
-     * format. If all inputs are valid, the corresponding success messages are returned. And If any input 
-     * is invalid, the corresponding error messages are returned, providing the user with feedback on 
-     * what needs to be corrected.
+     * format. If all inputs are valid, a success message is returned. If any input is invalid, the 
+     * corresponding error messages are returned, providing the user with feedback on what needs to be 
+     * corrected.
      * 
      * @param newUserName the username to register
      * @param newPassword the password to register
      * @param newCellPhoneNumber the cellphone number to register
      * @param newFirstName the first name to register
      * @param newLastName the last name to register
-     * @return an array of 6 Strings: 5 field-specific messages + 1 final status
+     * @return an array of Strings; a single success message if valid, or error messages if invalid
      */
     public String[] registerUser(String newUserName, String newPassword, String newCellPhoneNumber, String newFirstName, String newLastName)
     {
-        ArrayList<String> messages = new ArrayList<>(); // Collect all field messages
+        String[] errors = new String[5];
+        int errorCount = 0;
         
-        // Validate and store username
-        if (setUserName(newUserName))
+        if (!setUserName(newUserName))
         {
-            messages.add("Username successfully captured");
-        }
-        else
-        {
-            messages.add("Username is not correctly formatted, please ensure that your username contains an underscore and is no more than five characters in length.");
+            errors[errorCount] = "Username is not correctly formatted, please ensure that your username contains an underscore and is no more than five characters in length.";
+            errorCount++;
         }
         
-        // Validate and store password
-        if (setPassword(newPassword))
+        if (!setPassword(newPassword))
         {
-            messages.add("Password successfully captured");
-        }
-        else
-        {
-            messages.add("Password is not correctly formatted, please ensure that the password contains at least eight characters, a capital letter, a number, and a special character.");
+            errors[errorCount] = "Password is not correctly formatted, please ensure that the password contains at least eight characters, a capital letter, a number, and a special character.";
+            errorCount++;
         }
         
-        // Validate and store cellphone number
-        if (setCellPhoneNumber(newCellPhoneNumber))
+        if (!setCellPhoneNumber(newCellPhoneNumber))
         {
-            messages.add("Cellphone number successfully captured");
-        }
-        else
-        {
-            messages.add("Cellphone number is incorrectly formatted or does not contain an international code, please correct the number and try again.");
+            errors[errorCount] = "Cellphone number is incorrectly formatted or does not contain an international code, please correct the number and try again.";
+            errorCount++;
         }
 
-        // Validate and store first name
-        if (setFirstName(newFirstName))
+        if (!setFirstName(newFirstName))
         {
-            messages.add("First name successfully captured");
-        }
-        else
-        {
-            messages.add("First name is invalid, please ensure it is not empty and contains only letters.");
+            errors[errorCount] = "First name is invalid, please ensure it is not empty and contains only letters.";
+            errorCount++;
         }
 
-        // Validate and store last name
-        if (setLastName(newLastName))
+        if (!setLastName(newLastName))
         {
-            messages.add("Last name successfully captured");
+            errors[errorCount] = "Last name is invalid, please ensure it is not empty and contains only letters.";
+            errorCount++;
+        }
+        
+        if (errorCount == 0)
+        {
+            return new String[] {"You have been successfully registered"};
         }
         else
         {
-            messages.add("Last name is invalid, please ensure it is not empty and contains only letters.");
+            String[] result = new String[errorCount];
+            System.arraycopy(errors, 0, result, 0, errorCount);
+            return result;
         }
-        
-        // Determine final status using getters (all fields must be non-null for success)
-        if ((((
-                   this.storedUserName == null 
-                || this.storedPassword == null) 
-                || this.storedCellPhoneNumber == null) 
-                || this.storedFirstName == null) 
-                || this.storedLastName == null)
-        {
-            messages.add("Registration Failed");
-        }
-        else
-        {
-            messages.add("Registration Successful");
-        }
-        
-        return messages.toArray(String[]::new);
     }
 
     /**
@@ -338,22 +311,19 @@ public class Registration
     
     /**
      * Checks if the cellphone number starts with "+27" followed by exactly 9 digits.
-     * Uses regex pattern assisted by Grok 3 from xAI.
+     * Uses a regex pattern generated by AI (Grok 3, xAI, 2025) for validation.
      * 
      * @param cellPhoneNumber the cellphone number to check
-     * @return true if the cellphone number is valid, false otherwise (includes null/blank checks)
-     * @see xAI (2025) Grok 3 AI Assistant, xAI, Available at: [https://x.ai/] (Accessed: 7 April 2025).
+     * @return true if the cellphone number is valid, false otherwise (including null checks to prevent crash)
      */
     private boolean checkCellPhoneNumber(String cellPhoneNumber) 
     {
-        // Guard clause: return false for null or blank input to prevent crashes
-        if (cellPhoneNumber == null || cellPhoneNumber.isBlank()) 
+        if (cellPhoneNumber == null || cellPhoneNumber.isBlank()) // Exception Handled for Invalid characters
         {
             return false;
         }
         
-        // Regex pattern from Grok 3 ensures +27 prefix and exactly 9 digits
-        String regexChecker = "^\\+27[0-9]{9}$"; // Source: xAI (2025)
+        String regexChecker = "^\\+27[0-9]{9}$"; // From X.ai Grok3 AI Assistant
         return Pattern.matches(regexChecker, cellPhoneNumber);
     }
 }

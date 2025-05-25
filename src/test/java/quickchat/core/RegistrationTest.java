@@ -1,4 +1,4 @@
-package quickchat;
+package quickchat.core;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,36 +10,17 @@ import static org.junit.jupiter.api.Assertions.*;
  * and setter/getter methods, using JUnit5 to ensure compliance with Part 1 POE requirements.
  * 
  * @author Tshedimosetso Wowana
- * @version 1.0.0
+ * @version 1.0
  * @since 2025-04-09
  */
 public class RegistrationTest 
 {
-    
     /** The Registration instance under test. */
     private Registration registration;
 
     // Expected messages as constants
     /** Success message returned when registration is valid. */
-    private static final String SUCCESS_REGISTRATION_MESSAGE = "Registration Successful";
-    
-    /** Fail message returned when registration has any invalid input. */
-    private static final String FAILED_REGISTRATION_MESSAGE = "Registration Failed";
-    
-    /** Success message for a valid username. */
-    private static final String USERNAME_SUCCESS_MESSAGE = "Username successfully captured";
-    
-    /** Success message for a valid password. */
-    private static final String PASSWORD_SUCCESS_MESSAGE = "Password successfully captured";
-    
-    /** Success message for a valid cellphone number. */
-    private static final String CELL_PHONE_SUCCESS_MESSAGE = "Cellphone number successfully captured";
-    
-    /** Success message for a valid first name. */
-    private static final String FIRST_NAME_SUCCESS_MESSAGE = "First name successfully captured";
-    
-    /** Success message for a valid last name. */
-    private static final String LAST_NAME_SUCCESS_MESSAGE = "Last name successfully captured";
+    private static final String SUCCESS_REGISTRATION_MESSAGE = "You have been successfully registered";
     
     /** Error message for invalid username format. */
     private static final String USERNAME_ERROR_MESSAGE = "Username is not correctly formatted, please ensure that your username contains an underscore and is no more than five characters in length.";
@@ -85,11 +66,11 @@ public class RegistrationTest
     /** Invalid cellphone number for testing (wrong format). */
     private static final String INVALID_CELL_PHONE_NUMBER = "123456789";
     
-    /** Invalid first name for testing (empty string). */
-    private static final String INVALID_FIRST_NAME = "";
+    /** Invalid first name for testing (contains numbers). */
+    private static final String INVALID_FIRST_NAME = "Kyle123"; // Numbers not allowed
     
     /** Invalid last name for testing (empty string). */
-    private static final String INVALID_LAST_NAME = "";       
+    private static final String INVALID_LAST_NAME = "";        // Empty not allowed
 
     /**
      * Sets up the test environment before each test method.
@@ -103,141 +84,91 @@ public class RegistrationTest
 
     // Registration tests via registerUser method
     /**
-     * Tests that registerUser returns all success messages when all input values are valid.
-     * Verifies that the Registration class accepts correct data and returns six messages:
-     * five field-specific success messages and one overall success message.
+     * Tests that registerUser returns a success message when all input values are valid.
+     * Verifies that the Registration class accepts correct data and returns a single success message.
      */
     @Test
-    public void registerUser_ValidValues_ReturnsAllSuccessMessages() 
+    public void registerUser_ValidValues_ReturnsSuccessMessage() 
     {
         String[] result = registration.registerUser(VALID_USERNAME, VALID_PASSWORD, VALID_CELL_PHONE_NUMBER, VALID_FIRST_NAME, VALID_LAST_NAME);
-        assertEquals(6, result.length);
-        assertEquals(USERNAME_SUCCESS_MESSAGE, result[0]);
-        assertEquals(PASSWORD_SUCCESS_MESSAGE, result[1]);
-        assertEquals(CELL_PHONE_SUCCESS_MESSAGE, result[2]);
-        assertEquals(FIRST_NAME_SUCCESS_MESSAGE, result[3]);
-        assertEquals(LAST_NAME_SUCCESS_MESSAGE, result[4]);
-        assertEquals(SUCCESS_REGISTRATION_MESSAGE, result[5]);
+        assertEquals(1, result.length);
+        assertEquals(SUCCESS_REGISTRATION_MESSAGE, result[0]);
     }
 
     /**
-     * Tests that registerUser returns an error message for an invalid username along with success messages for valid fields.
-     * Verifies that the Registration class correctly handles an invalid username and aborts registration.
+     * Tests that registerUser returns an error message for an invalid username.
+     * Verifies that the Registration class rejects usernames exceeding format rules.
      */
     @Test
-    public void registerUser_InvalidUsername_ReturnsErrorAndSuccessMessages() 
+    public void registerUser_InvalidUsername_ReturnsErrorMessage() 
     {
         String[] result = registration.registerUser(INVALID_USERNAME, VALID_PASSWORD, VALID_CELL_PHONE_NUMBER, VALID_FIRST_NAME, VALID_LAST_NAME);
-        assertEquals(6, result.length);
+        assertEquals(1, result.length);
         assertEquals(USERNAME_ERROR_MESSAGE, result[0]);
-        assertEquals(PASSWORD_SUCCESS_MESSAGE, result[1]);
-        assertEquals(CELL_PHONE_SUCCESS_MESSAGE, result[2]);
-        assertEquals(FIRST_NAME_SUCCESS_MESSAGE, result[3]);
-        assertEquals(LAST_NAME_SUCCESS_MESSAGE, result[4]);
-        assertEquals(FAILED_REGISTRATION_MESSAGE, result[5]);
     }
 
     /**
-     * Tests that registerUser returns an error message for an invalid password along with success messages for valid fields.
-     * Verifies that the Registration class correctly handles an invalid password and aborts registration.
+     * Tests that registerUser returns an error message for an invalid password.
+     * Verifies that the Registration class rejects passwords lacking required complexity.
      */
     @Test
-    public void registerUser_InvalidPassword_ReturnsErrorAndSuccessMessages() 
+    public void registerUser_InvalidPassword_ReturnsErrorMessage() 
     {
         String[] result = registration.registerUser(VALID_USERNAME, INVALID_PASSWORD, VALID_CELL_PHONE_NUMBER, VALID_FIRST_NAME, VALID_LAST_NAME);
-        assertEquals(6, result.length);
-        assertEquals(USERNAME_SUCCESS_MESSAGE, result[0]);
-        assertEquals(PASSWORD_ERROR_MESSAGE, result[1]);
-        assertEquals(CELL_PHONE_SUCCESS_MESSAGE, result[2]);
-        assertEquals(FIRST_NAME_SUCCESS_MESSAGE, result[3]);
-        assertEquals(LAST_NAME_SUCCESS_MESSAGE, result[4]);
-        assertEquals(FAILED_REGISTRATION_MESSAGE, result[5]);
+        assertEquals(1, result.length);
+        assertEquals(PASSWORD_ERROR_MESSAGE, result[0]);
     }
 
     /**
-     * Tests that registerUser returns an error message for an invalid cellphone number along with success messages for valid fields.
-     * Verifies that the Registration class correctly handles an invalid cellphone number and aborts registration.
+     * Tests that registerUser returns an error message for an invalid cellphone number.
+     * Verifies that the Registration class rejects cellphone numbers without proper format.
      */
     @Test
-    public void registerUser_InvalidCellPhoneNumber_ReturnsErrorAndSuccessMessages() 
+    public void registerUser_InvalidCellPhoneNumber_ReturnsErrorMessage() 
     {
         String[] result = registration.registerUser(VALID_USERNAME, VALID_PASSWORD, INVALID_CELL_PHONE_NUMBER, VALID_FIRST_NAME, VALID_LAST_NAME);
-        assertEquals(6, result.length);
-        assertEquals(USERNAME_SUCCESS_MESSAGE, result[0]);
-        assertEquals(PASSWORD_SUCCESS_MESSAGE, result[1]);
-        assertEquals(CELL_PHONE_ERROR_MESSAGE, result[2]);
-        assertEquals(FIRST_NAME_SUCCESS_MESSAGE, result[3]);
-        assertEquals(LAST_NAME_SUCCESS_MESSAGE, result[4]);
-        assertEquals(FAILED_REGISTRATION_MESSAGE, result[5]);
+        assertEquals(1, result.length);
+        assertEquals(CELL_PHONE_ERROR_MESSAGE, result[0]);
     }
 
     /**
-     * Tests that registerUser returns an error message for an invalid first name along with success messages for valid fields.
-     * Verifies that the Registration class correctly handles an invalid first name and aborts registration.
+     * Tests that registerUser returns an error message for an invalid first name.
+     * Verifies that the Registration class rejects first names with numbers or invalid format.
      */
     @Test
-    public void registerUser_InvalidFirstName_ReturnsErrorAndSuccessMessages() 
+    public void registerUser_InvalidFirstName_ReturnsErrorMessage() 
     {
         String[] result = registration.registerUser(VALID_USERNAME, VALID_PASSWORD, VALID_CELL_PHONE_NUMBER, INVALID_FIRST_NAME, VALID_LAST_NAME);
-        assertEquals(6, result.length);
-        assertEquals(USERNAME_SUCCESS_MESSAGE, result[0]);
-        assertEquals(PASSWORD_SUCCESS_MESSAGE, result[1]);
-        assertEquals(CELL_PHONE_SUCCESS_MESSAGE, result[2]);
-        assertEquals(FIRST_NAME_ERROR_MESSAGE, result[3]);
-        assertEquals(LAST_NAME_SUCCESS_MESSAGE, result[4]);
-        assertEquals(FAILED_REGISTRATION_MESSAGE, result[5]);
+        assertEquals(1, result.length);
+        assertEquals(FIRST_NAME_ERROR_MESSAGE, result[0]);
     }
 
     /**
-     * Tests that registerUser returns an error message for an invalid last name along with success messages for valid fields.
-     * Verifies that the Registration class correctly handles an invalid last name and aborts registration.
+     * Tests that registerUser returns an error message for an invalid last name.
+     * Verifies that the Registration class rejects empty or invalid last names.
      */
     @Test
-    public void registerUser_InvalidLastName_ReturnsErrorAndSuccessMessages() 
+    public void registerUser_InvalidLastName_ReturnsErrorMessage() 
     {
         String[] result = registration.registerUser(VALID_USERNAME, VALID_PASSWORD, VALID_CELL_PHONE_NUMBER, VALID_FIRST_NAME, INVALID_LAST_NAME);
-        assertEquals(6, result.length);
-        assertEquals(USERNAME_SUCCESS_MESSAGE, result[0]);
-        assertEquals(PASSWORD_SUCCESS_MESSAGE, result[1]);
-        assertEquals(CELL_PHONE_SUCCESS_MESSAGE, result[2]);
-        assertEquals(FIRST_NAME_SUCCESS_MESSAGE, result[3]);
-        assertEquals(LAST_NAME_ERROR_MESSAGE, result[4]);
-        assertEquals(FAILED_REGISTRATION_MESSAGE, result[5]);
+        assertEquals(1, result.length);
+        assertEquals(LAST_NAME_ERROR_MESSAGE, result[0]);
     }
 
     /**
      * Tests that registerUser returns all error messages when all inputs are invalid.
-     * Verifies that the Registration class correctly identifies and reports all validation failures and aborts registration.
+     * Verifies that the Registration class correctly identifies and reports multiple validation failures.
      */
     @Test
     public void registerUser_AllInvalid_ReturnsAllErrorMessages() 
     {
         String[] result = registration.registerUser(INVALID_USERNAME, INVALID_PASSWORD, INVALID_CELL_PHONE_NUMBER, INVALID_FIRST_NAME, INVALID_LAST_NAME);
-        assertEquals(6, result.length);
-        assertEquals(USERNAME_ERROR_MESSAGE, result[0]);
-        assertEquals(PASSWORD_ERROR_MESSAGE, result[1]);
-        assertEquals(CELL_PHONE_ERROR_MESSAGE, result[2]);
-        assertEquals(FIRST_NAME_ERROR_MESSAGE, result[3]);
-        assertEquals(LAST_NAME_ERROR_MESSAGE, result[4]);
-        assertEquals(FAILED_REGISTRATION_MESSAGE, result[5]);
-    }
-
-    /**
-     * Tests that registerUser returns multiple error messages when multiple fields are invalid.
-     * Verifies that the Registration class correctly handles multiple invalid inputs, provides success messages for valid fields,
-     * and aborts registration.
-     */
-    @Test
-    public void registerUser_MultipleInvalidFields_ReturnsMultipleErrorMessages() 
-    {
-        String[] result = registration.registerUser(INVALID_USERNAME, INVALID_PASSWORD, VALID_CELL_PHONE_NUMBER, VALID_FIRST_NAME, VALID_LAST_NAME);
-        assertEquals(6, result.length);
-        assertEquals(USERNAME_ERROR_MESSAGE, result[0]);
-        assertEquals(PASSWORD_ERROR_MESSAGE, result[1]);
-        assertEquals(CELL_PHONE_SUCCESS_MESSAGE, result[2]);
-        assertEquals(FIRST_NAME_SUCCESS_MESSAGE, result[3]);
-        assertEquals(LAST_NAME_SUCCESS_MESSAGE, result[4]);
-        assertEquals(FAILED_REGISTRATION_MESSAGE, result[5]);
+        assertEquals(5, result.length);
+        assertTrue(contains(result, USERNAME_ERROR_MESSAGE));
+        assertTrue(contains(result, PASSWORD_ERROR_MESSAGE));
+        assertTrue(contains(result, CELL_PHONE_ERROR_MESSAGE));
+        assertTrue(contains(result, FIRST_NAME_ERROR_MESSAGE));
+        assertTrue(contains(result, LAST_NAME_ERROR_MESSAGE));
     }
 
     // Setter and Getter tests
@@ -356,4 +287,23 @@ public class RegistrationTest
         assertFalse(setResult);
     }
 
+    /**
+     * Helper method to check if a String array contains a specific value.
+     * Used in tests to verify multiple error messages in the result array.
+     * 
+     * @param array the String array to search
+     * @param value the value to find in the array
+     * @return true if the value is found in the array, false otherwise
+     */
+    private boolean contains(String[] array, String value) 
+    {
+        for (String item : array) 
+        {
+            if (item.equals(value)) 
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
