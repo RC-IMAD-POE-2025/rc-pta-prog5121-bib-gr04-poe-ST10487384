@@ -1,8 +1,8 @@
-# QuickChat - PROG5121 POE Part 2
+# QuickChat - PROG5121 POE
 
 **Author**: Tshedimosetso Wowana - ST10487384@rcconnect.edu.za
 
-QuickChat is a simple chat application developed for PROG5121 POE Part 2. Version 2.0.0 implements messaging. Built using Java, Apache NetBeans 19, JDK 21, Maven, and JUnit5 for testing.
+QuickChat is a simple chat application developed for PROG5121 POE. Version 3.0.0 implements message reports. Built using Java, Apache NetBeans 19, JDK 21, Maven, JSON, and JUnit5 for testing.
 
 ## Features
 
