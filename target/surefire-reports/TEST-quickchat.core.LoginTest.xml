@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="quickchat.core.LoginTest" time="0.195" tests="6" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="quickchat.core.LoginTest" time="0.211" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\Justin\source\QuickChat-Part2\ST10487384-PROG5121-POE\target\test-classes;C:\Users\Justin\source\QuickChat-Part2\ST10487384-PROG5121-POE\target\classes;C:\Users\Justin\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\Justin\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\Justin\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Justin\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\Justin\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\Justin\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\Justin\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;C:\Users\Justin\.m2\repository\com\googlecode\json-simple\json-simple\1.1.1\json-simple-1.1.1.jar;C:\Users\Justin\.m2\repository\junit\junit\4.10\junit-4.10.jar;C:\Users\Justin\.m2\repository\org\hamcrest\hamcrest-core\1.1\hamcrest-core-1.1.jar;"/>
+    <property name="java.class.path" value="C:\Users\Justin\source\QUICKCHAT-PROG5121-POE\target\test-classes;C:\Users\Justin\source\QUICKCHAT-PROG5121-POE\target\classes;C:\Users\Justin\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\Justin\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\Justin\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Justin\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\Justin\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\Justin\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\Justin\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;C:\Users\Justin\.m2\repository\com\googlecode\json-simple\json-simple\1.1.1\json-simple-1.1.1.jar;C:\Users\Justin\.m2\repository\junit\junit\4.10\junit-4.10.jar;C:\Users\Justin\.m2\repository\org\hamcrest\hamcrest-core\1.1\hamcrest-core-1.1.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="user.timezone" value="Africa/Johannesburg"/>
+    <property name="user.country.format" value="150"/>
     <property name="os.name" value="Windows 11"/>
     <property name="java.vm.specification.version" value="21"/>
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-21\bin"/>
-    <property name="sun.java.command" value="C:\Users\Justin\AppData\Local\Temp\surefire16347547293518272534\surefirebooter-20250525212253267_3.jar C:\Users\Justin\AppData\Local\Temp\surefire16347547293518272534 2025-05-25T21-22-52_652-jvmRun1 surefire-20250525212253267_1tmp surefire_0-20250525212253267_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\Justin\AppData\Local\Temp\surefire15854211368014839174\surefirebooter-20250613221645713_3.jar C:\Users\Justin\AppData\Local\Temp\surefire15854211368014839174 2025-06-13T22-16-44_661-jvmRun1 surefire-20250613221645713_1tmp surefire_0-20250613221645713_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\Users\Justin\source\QuickChat-Part2\ST10487384-PROG5121-POE\target\test-classes;C:\Users\Justin\source\QuickChat-Part2\ST10487384-PROG5121-POE\target\classes;C:\Users\Justin\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\Justin\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\Justin\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Justin\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\Justin\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\Justin\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\Justin\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;C:\Users\Justin\.m2\repository\com\googlecode\json-simple\json-simple\1.1.1\json-simple-1.1.1.jar;C:\Users\Justin\.m2\repository\junit\junit\4.10\junit-4.10.jar;C:\Users\Justin\.m2\repository\org\hamcrest\hamcrest-core\1.1\hamcrest-core-1.1.jar;"/>
+    <property name="surefire.test.class.path" value="C:\Users\Justin\source\QUICKCHAT-PROG5121-POE\target\test-classes;C:\Users\Justin\source\QUICKCHAT-PROG5121-POE\target\classes;C:\Users\Justin\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.6.0\junit-jupiter-api-5.6.0.jar;C:\Users\Justin\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\Justin\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\Justin\.m2\repository\org\junit\platform\junit-platform-commons\1.6.0\junit-platform-commons-1.6.0.jar;C:\Users\Justin\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.6.0\junit-jupiter-params-5.6.0.jar;C:\Users\Justin\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.6.0\junit-jupiter-engine-5.6.0.jar;C:\Users\Justin\.m2\repository\org\junit\platform\junit-platform-engine\1.6.0\junit-platform-engine-1.6.0.jar;C:\Users\Justin\.m2\repository\com\googlecode\json-simple\json-simple\1.1.1\json-simple-1.1.1.jar;C:\Users\Justin\.m2\repository\junit\junit\4.10\junit-4.10.jar;C:\Users\Justin\.m2\repository\org\hamcrest\hamcrest-core\1.1\hamcrest-core-1.1.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\Justin"/>
     <property name="user.language" value="en"/>
@@ -25,12 +26,12 @@
     <property name="java.version.date" value="2025-01-21"/>
     <property name="java.home" value="C:\Program Files\Java\jdk-21"/>
     <property name="file.separator" value="\"/>
-    <property name="basedir" value="C:\Users\Justin\source\QuickChat-Part2\ST10487384-PROG5121-POE"/>
+    <property name="basedir" value="C:\Users\Justin\source\QUICKCHAT-PROG5121-POE"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Justin\AppData\Local\Temp\surefire16347547293518272534\surefirebooter-20250525212253267_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Justin\AppData\Local\Temp\surefire15854211368014839174\surefirebooter-20250613221645713_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.6+8-LTS-188"/>
@@ -46,7 +47,7 @@
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
     <property name="java.io.tmpdir" value="C:\Users\Justin\AppData\Local\Temp\"/>
     <property name="java.version" value="21.0.6"/>
-    <property name="user.dir" value="C:\Users\Justin\source\QuickChat-Part2\ST10487384-PROG5121-POE"/>
+    <property name="user.dir" value="C:\Users\Justin\source\QUICKCHAT-PROG5121-POE"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="sun.os.patch.level" value=""/>
@@ -59,10 +60,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="loginUser_WrongUsername_ReturnsFalse" classname="quickchat.core.LoginTest" time="0.061"/>
-  <testcase name="loginUser_WrongCredentials_ReturnsFalse" classname="quickchat.core.LoginTest" time="0.004"/>
-  <testcase name="returnLoginStatus_ValidCredentials_ReturnsWelcomeMessageWithNames" classname="quickchat.core.LoginTest" time="0.007"/>
-  <testcase name="loginUser_WrongPassword_ReturnsFalse" classname="quickchat.core.LoginTest" time="0.011"/>
-  <testcase name="returnLoginStatus_InvalidCredentials_ReturnsFailureMessage" classname="quickchat.core.LoginTest" time="0.011"/>
-  <testcase name="loginUser_CorrectCredentials_ReturnsTrue" classname="quickchat.core.LoginTest" time="0.005"/>
+  <testcase name="loginUser_WrongUsername_ReturnsFalse" classname="quickchat.core.LoginTest" time="0.05"/>
+  <testcase name="loginUser_WrongCredentials_ReturnsFalse" classname="quickchat.core.LoginTest" time="0.012"/>
+  <testcase name="returnLoginStatus_ValidCredentials_ReturnsWelcomeMessageWithNames" classname="quickchat.core.LoginTest" time="0.02"/>
+  <testcase name="loginUser_WrongPassword_ReturnsFalse" classname="quickchat.core.LoginTest" time="0.002"/>
+  <testcase name="returnLoginStatus_InvalidCredentials_ReturnsFailureMessage" classname="quickchat.core.LoginTest" time="0.001"/>
+  <testcase name="loginUser_CorrectCredentials_ReturnsTrue" classname="quickchat.core.LoginTest" time="0.014"/>
 </testsuite>

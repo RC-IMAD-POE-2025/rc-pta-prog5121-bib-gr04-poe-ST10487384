@@ -8,8 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit test class for the Login class in the QuickChat application.
  * Tests the login functionality, including credential validation and status messages,
  * using JUnit5 to ensure compliance with Part 1 POE requirements.
- * 
- * @author Tshedimosetso Wowana
+ * * @author Tshedimosetso Wowana
  * @version 1.0.0
  * @since 2025-03-01
  */
@@ -23,7 +22,7 @@ public class LoginTest
 
     // Test data
     /** Valid username for testing (max 5 chars with underscore). */
-    private static final String VALID_USERNAME = "kyl_1";
+    private static final String VALID_USERNAME = "Tsh_1"; // Using student's name convention
     
     /** Valid password for testing (8+ chars, capital, number, special char). */
     private static final String VALID_PASSWORD = "Ch&&sec@ke99!";
@@ -32,10 +31,10 @@ public class LoginTest
     private static final String VALID_CELL_PHONE_NUMBER = "+27838968976";
     
     /** Valid first name for testing. */
-    private static final String VALID_FIRST_NAME = "Kyle";
+    private static final String VALID_FIRST_NAME = "Tshedimosetso";
     
     /** Valid last name for testing. */
-    private static final String VALID_LAST_NAME = "Smith";
+    private static final String VALID_LAST_NAME = "Wowana";
     
     /** Invalid username for testing (exceeds format rules). */
     private static final String INVALID_USERNAME = "kyle!!!!!!!";
@@ -52,6 +51,7 @@ public class LoginTest
     public void setUp() 
     {
         registration = new Registration();
+        // Register a user with valid data before each test
         registration.registerUser(VALID_USERNAME, VALID_PASSWORD, VALID_CELL_PHONE_NUMBER, VALID_FIRST_NAME, VALID_LAST_NAME);
         login = new Login(registration);
     }
@@ -68,14 +68,14 @@ public class LoginTest
     }
 
     /**
-     * Tests that loginUser returns false when provided with incorrect credentials.
-     * Note: This test currently uses valid credentials, which should fail; it needs correction.
+     * Tests that loginUser returns false when provided with incorrect credentials (both wrong).
      */
     @Test
     public void loginUser_WrongCredentials_ReturnsFalse() 
     {
-        boolean loginResult = login.loginUser(VALID_USERNAME, VALID_PASSWORD);
-        assertTrue(loginResult);
+        // Corrected Test: Use invalid credentials to test for failure
+        boolean loginResult = login.loginUser(INVALID_USERNAME, INVALID_PASSWORD);
+        assertFalse(loginResult);
     }
 
     /**
@@ -119,7 +119,7 @@ public class LoginTest
     @Test
     public void returnLoginStatus_InvalidCredentials_ReturnsFailureMessage() 
     {
-        login.loginUser(VALID_USERNAME, INVALID_PASSWORD);
+        login.loginUser(VALID_USERNAME, INVALID_PASSWORD); // Unsuccessful login attempt
         String status = login.returnLoginStatus();
         assertEquals("Username & Password do not match our records, please try again.", status);
     }

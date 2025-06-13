@@ -2,7 +2,7 @@ name: Run JUnit5 Tests
 
 on:
   push:
-    branches: [ part2 ]
+    branches: [ dev ]
   pull_request:
     branches: [ main ]
 

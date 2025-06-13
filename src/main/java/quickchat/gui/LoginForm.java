@@ -35,6 +35,7 @@ public class LoginForm extends javax.swing.JFrame
         this.LOGIN = login;
         this.QUICK_CHAT = quickChat;
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -150,7 +151,7 @@ public class LoginForm extends javax.swing.JFrame
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
         jTextArea1.setRows(5);
-        jTextArea1.setText("Welcome back to QuickChat v2!\n\nPlease verify your identity\nby entering your credentials.");
+        jTextArea1.setText("Welcome back to QuickChat v1!\n\nPlease verify your identity\nby entering your credentials.");
         jScrollPane3.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -168,7 +169,7 @@ public class LoginForm extends javax.swing.JFrame
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -200,23 +201,30 @@ public class LoginForm extends javax.swing.JFrame
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
+        // 1. Get the username and password from the text fields.
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
 
-        // Call login logic (assuming Login class exists)
+        // 2. Use the Login object to check if the credentials are correct.
         boolean success = LOGIN.loginUser(username, password);
-        String message = LOGIN.returnLoginStatus();
-        //JOptionPane.showMessageDialog(this, message);
 
+        // 3. Check the result of the login attempt.
         if (success) 
         {
-            JOptionPane.showMessageDialog(this, message, "Login Successful", JOptionPane.INFORMATION_MESSAGE);
-            QUICK_CHAT.showMessageFeature(); // Show next step
-            this.setVisible(false);      // Hide LoginForm
+            // If login is successful, show a welcome message.
+            JOptionPane.showMessageDialog(this, LOGIN.returnLoginStatus(), "Login Successful", JOptionPane.INFORMATION_MESSAGE);
+            
+            // Create and show the new messaging dashboard, passing the logged-in user's name.
+            MessagingDashboard dashboard = new MessagingDashboard(LOGIN.getUsername());
+            dashboard.setVisible(true);
+            
+            // Hide the login form.
+            this.dispose(); 
         }
         else
         {
-            JOptionPane.showMessageDialog(this, message, "Login Failed", JOptionPane.ERROR_MESSAGE);
+            // If login fails, show an error message.
+            JOptionPane.showMessageDialog(this, LOGIN.returnLoginStatus(), "Login Failed", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_loginButtonActionPerformed

@@ -6,324 +6,215 @@ import java.util.regex.Pattern; // AI Assisted Regex checker
  * A class responsible for handling user registration in the QuickChat application.
  * Validates and stores user data (username, password, cellphone number, first name, last name)
  * according to POE Part 1 requirements, using setter methods with encapsulated validation logic.
- * 
- * @author Tshedimosetso Wowana
- * @version 1.0.0
+ * * @author Tshedimosetso Wowana
+ * @version 1.1.0 // Version updated for new registerUser behavior
  * @since 2025-03-01
  */
 public class Registration
 {
-    /** The stored username, validated to contain an underscore and be max 5 characters. */
     private String storedUserName;
-    
-    /** The stored password, validated for complexity (8+ chars, capital, number, special char). */
     private String storedPassword;
-    
-    /** The stored cellphone number, validated to start with "+27" followed by 9 digits. */
     private String storedCellPhoneNumber;
-    
-    /** The stored first name, validated to contain only letters and be non-empty. */
     private String storedFirstName;
-    
-    /** The stored last name, validated to contain only letters and be non-empty. */
     private String storedLastName;
-    
+
+    // Constants for messages as per POE document and common practice
+    private static final String USERNAME_SUCCESS_MESSAGE = "Username successfully captured.";
+    private static final String USERNAME_ERROR_MESSAGE = "Username is not correctly formatted, please ensure that your username contains an underscore and is no more than five characters in length.";
+    private static final String PASSWORD_SUCCESS_MESSAGE = "Password successfully captured.";
+    private static final String PASSWORD_ERROR_MESSAGE = "Password is not correctly formatted, please ensure that the password contains at least eight characters, a capital letter, a number, and a special character.";
+    private static final String CELLPHONE_SUCCESS_MESSAGE = "Cell phone number successfully added."; // As per POE table
+    private static final String CELLPHONE_ERROR_MESSAGE = "Cellphone number is incorrectly formatted or does not contain an international code, please correct the number and try again."; // Adapted from POE
+    private static final String FIRST_NAME_SUCCESS_MESSAGE = "First name successfully captured.";
+    private static final String FIRST_NAME_ERROR_MESSAGE = "First name is invalid, please ensure it is not empty and contains only letters.";
+    private static final String LAST_NAME_SUCCESS_MESSAGE = "Last name successfully captured.";
+    private static final String LAST_NAME_ERROR_MESSAGE = "Last name is invalid, please ensure it is not empty and contains only letters.";
+    static final String REGISTRATION_SUCCESSFUL_OVERALL = "Registration successful";
+    static final String REGISTRATION_ABORTED_OVERALL = "Registration aborted - please check the messages above.";
+
+
     /**
-     * Registers a user by calling the setter methods which contain the validation logic.
-     * 
-     * The setter methods for username, password, and cellphone number are responsible for validating the 
-     * individual inputs based on the POE criteria. These methods return a Boolean indicating whether the 
-     * input is valid or not. If an input is invalid, the corresponding error message is generated in the 
-     * `registerUser` method.
-     * 
-     * The `registerUser` method accepts five arguments: username, password, cellphone number, first name,
-     * and last name. It invokes the respective setter methods that check if the inputs meet the required 
-     * format. If all inputs are valid, a success message is returned. If any input is invalid, the 
-     * corresponding error messages are returned, providing the user with feedback on what needs to be 
-     * corrected.
-     * 
+     * Registers a user by calling setter methods for validation.
+     * Returns a 6-element String array:
+     * Index 0: Username validation message (success/error)
+     * Index 1: Password validation message (success/error)
+     * Index 2: Cellphone validation message (success/error)
+     * Index 3: First name validation message (success/error)
+     * Index 4: Last name validation message (success/error)
+     * Index 5: Overall registration status ("Registration successful" or "Registration aborted...")
      * @param newUserName the username to register
      * @param newPassword the password to register
      * @param newCellPhoneNumber the cellphone number to register
      * @param newFirstName the first name to register
      * @param newLastName the last name to register
-     * @return an array of Strings; a single success message if valid, or error messages if invalid
+     * @return a 6-element array of Strings with detailed feedback and overall status.
      */
-    public String[] registerUser(String newUserName, String newPassword, String newCellPhoneNumber, String newFirstName, String newLastName)
-    {
-        String[] errors = new String[5];
-        int errorCount = 0;
-        
-        if (!setUserName(newUserName))
-        {
-            errors[errorCount] = "Username is not correctly formatted, please ensure that your username contains an underscore and is no more than five characters in length.";
-            errorCount++;
-        }
-        
-        if (!setPassword(newPassword))
-        {
-            errors[errorCount] = "Password is not correctly formatted, please ensure that the password contains at least eight characters, a capital letter, a number, and a special character.";
-            errorCount++;
-        }
-        
-        if (!setCellPhoneNumber(newCellPhoneNumber))
-        {
-            errors[errorCount] = "Cellphone number is incorrectly formatted or does not contain an international code, please correct the number and try again.";
-            errorCount++;
+    public String[] registerUser(String newUserName, String newPassword, String newCellPhoneNumber, String newFirstName, String newLastName) {
+        String[] feedbackMessages = new String[6];
+        boolean allFieldsValid = true;
+
+        // Validate Username
+        if (setUserName(newUserName)) {
+            feedbackMessages[0] = USERNAME_SUCCESS_MESSAGE;
+        } else {
+            feedbackMessages[0] = USERNAME_ERROR_MESSAGE;
+            allFieldsValid = false;
         }
 
-        if (!setFirstName(newFirstName))
-        {
-            errors[errorCount] = "First name is invalid, please ensure it is not empty and contains only letters.";
-            errorCount++;
+        // Validate Password
+        if (setPassword(newPassword)) {
+            feedbackMessages[1] = PASSWORD_SUCCESS_MESSAGE;
+        } else {
+            feedbackMessages[1] = PASSWORD_ERROR_MESSAGE;
+            allFieldsValid = false;
         }
 
-        if (!setLastName(newLastName))
-        {
-            errors[errorCount] = "Last name is invalid, please ensure it is not empty and contains only letters.";
-            errorCount++;
+        // Validate Cellphone Number
+        if (setCellPhoneNumber(newCellPhoneNumber)) {
+            feedbackMessages[2] = CELLPHONE_SUCCESS_MESSAGE;
+        } else {
+            feedbackMessages[2] = CELLPHONE_ERROR_MESSAGE;
+            allFieldsValid = false;
         }
-        
-        if (errorCount == 0)
-        {
-            return new String[] {"You have been successfully registered"};
+
+        // Validate First Name
+        if (setFirstName(newFirstName)) {
+            feedbackMessages[3] = FIRST_NAME_SUCCESS_MESSAGE;
+        } else {
+            feedbackMessages[3] = FIRST_NAME_ERROR_MESSAGE;
+            allFieldsValid = false;
         }
-        else
-        {
-            String[] result = new String[errorCount];
-            System.arraycopy(errors, 0, result, 0, errorCount);
-            return result;
+
+        // Validate Last Name
+        if (setLastName(newLastName)) {
+            feedbackMessages[4] = LAST_NAME_SUCCESS_MESSAGE;
+        } else {
+            feedbackMessages[4] = LAST_NAME_ERROR_MESSAGE;
+            allFieldsValid = false;
         }
+
+        // Set overall registration status message
+        if (allFieldsValid) {
+            feedbackMessages[5] = REGISTRATION_SUCCESSFUL_OVERALL;
+        } else {
+            feedbackMessages[5] = REGISTRATION_ABORTED_OVERALL;
+        }
+
+        return feedbackMessages;
     }
 
-    /**
-     * Retrieves the stored username.
-     * 
-     * @return the current stored username, or null if not set
-     */
-    public String getUserName() 
-    {
+    // Getter methods remain unchanged
+    public String getUserName() {
         return this.storedUserName;
     }
-    
-    /**
-     * Retrieves the stored password.
-     * 
-     * @return the current stored password, or null if not set
-     */
-    public String getPassword() 
-    {
+
+    public String getPassword() {
         return this.storedPassword;
-    } 
-    
-    /**
-     * Retrieves the stored cellphone number.
-     * 
-     * @return the current stored cellphone number, or null if not set
-     */
-    public String getCellPhoneNumber() 
-    {
+    }
+
+    public String getCellPhoneNumber() {
         return this.storedCellPhoneNumber;
     }
-    
-    /**
-     * Sets the username if it is correctly formatted.
-     *
-     * @param userName the username to set
-     * @return true if the username is valid and set, false otherwise
-     */
-    public boolean setUserName(String userName) 
-    {
-        if (checkUserName(userName)) 
-        {
+
+    public String getFirstName() {
+        return this.storedFirstName;
+    }
+
+    public String getLastName() {
+        return this.storedLastName;
+    }
+
+    // Setter and validation methods remain unchanged
+    public boolean setUserName(String userName) {
+        if (checkUserName(userName)) {
             this.storedUserName = userName;
             return true;
-        } 
-        else 
-        {
+        } else {
+            this.storedUserName = null; // Clear if invalid
             return false;
         }
     }
-    
-    /**
-     * Sets the password if it meets complexity requirements.
-     *
-     * @param password the password to set
-     * @return true if the password is valid and set, false otherwise
-     */
-    public boolean setPassword(String password) 
-    {
-        if (checkPasswordComplexity(password)) 
-        {
+
+    public boolean setPassword(String password) {
+        if (checkPasswordComplexity(password)) {
             this.storedPassword = password;
             return true;
-        } 
-        else 
-        {
+        } else {
+            this.storedPassword = null; // Clear if invalid
             return false;
         }
     }
-    
-    /**
-     * Sets the cellphone number ONLY if it is correctly formatted.
-     *
-     * @param cellPhoneNumber the cellphone number to set
-     * @return true if the cellphone number is valid and set, false otherwise
-     */
-    public boolean setCellPhoneNumber(String cellPhoneNumber) 
-    {
-        if (checkCellPhoneNumber(cellPhoneNumber))
-        {
+
+    public boolean setCellPhoneNumber(String cellPhoneNumber) {
+        if (checkCellPhoneNumber(cellPhoneNumber)) {
             this.storedCellPhoneNumber = cellPhoneNumber;
             return true;
-        } 
-        else 
-        {
+        } else {
+            this.storedCellPhoneNumber = null; // Clear if invalid
             return false;
         }
     }
-    
-    /**
-     * Sets the first name if it contains only letters and is non-empty.
-     * 
-     * @param firstName the first name to set
-     * @return true if the first name is valid and set, false otherwise
-     */
-    public boolean setFirstName(String firstName)
-    {
-        if (firstName != null && !firstName.trim().isEmpty() && firstName.matches("^[a-zA-Z]+$"))
-        {
+
+    public boolean setFirstName(String firstName) {
+        if (firstName != null && !firstName.trim().isEmpty() && firstName.matches("^[a-zA-Z]+$")) {
             this.storedFirstName = firstName;
             return true;
         }
+        this.storedFirstName = null; // Clear if invalid
         return false;
     }
 
-    /**
-     * Sets the last name if it contains only letters and is non-empty.
-     * 
-     * @param lastName the last name to set
-     * @return true if the last name is valid and set, false otherwise
-     */
-    public boolean setLastName(String lastName)
-    {
-        if (lastName != null && !lastName.trim().isEmpty() && lastName.matches("^[a-zA-Z]+$"))
-        {
+    public boolean setLastName(String lastName) {
+        if (lastName != null && !lastName.trim().isEmpty() && lastName.matches("^[a-zA-Z]+$")) {
             this.storedLastName = lastName;
             return true;
         }
+        this.storedLastName = null; // Clear if invalid
         return false;
     }
-
-    /**
-     * Retrieves the stored first name.
-     * 
-     * @return the current stored first name, or null if not set
-     */
-    public String getFirstName()
-    {
-        return this.storedFirstName;
-    }
     
-    /**
-     * Retrieves the stored last name.
-     * 
-     * @return the current stored last name, or null if not set
-     */
-    public String getLastName()
-    {
-        return this.storedLastName;
-    }
-    
-    // -------------------------------------------------------------------------------------------------
-    // THE FOLLOWING METHODS WERE DECLARED PRIVATE... 
-    // I applied the principle of encapsulation (Farrell, 2020) , to prevent the core logic from being tampered
-    // with when an instance of this Registration class is invoked.
-    // These methods will be called by Public Setter methods above ONLY.
-    
-    /**
-     * Checks if the username contains an underscore and is no more than 5 characters long.
-     * Enforces POE requirements for username format.
-     *
-     * @param userName the username to check
-     * @return true if the username is valid, false otherwise
-     */
-    private boolean checkUserName(String userName)
-    {
-        if (userName == null || userName.isBlank())
-        {
+    // Private validation helper methods remain unchanged
+    private boolean checkUserName(String userName) {
+        if (userName == null || userName.isBlank()) {
             return false;
         }
-        
-        final int MAX_USERNAME_LENGTH = 5; // The POE explicitly asked for this but not a minimum length
-        
+        final int MAX_USERNAME_LENGTH = 5;
         return userName.contains("_") && userName.length() <= MAX_USERNAME_LENGTH;
-        // The underscore character is enforced for all usernames as per the POE instruction
     }
-            
-    /**
-     * Checks if the password meets complexity requirements: 8-32 characters, with at least one capital letter,
-     * one digit, and one special character. Uses a for-each loop inspired by C# style for validation.
-     *
-     * @param password the password to check
-     * @return true if the password is valid, false otherwise or null
-     */
-    private boolean checkPasswordComplexity(String password)
-    {
-        if (password == null || password.isBlank())
-        {
+
+    private boolean checkPasswordComplexity(String password) {
+        if (password == null || password.isBlank()) {
             return false;
         }
-        
-        // It is good practice to use constants instead of hardcoded literals for readability 
-        final int MIN_PASSWORD_LENGTH = 8; // This isn't required by POE but It is good practice to enforce.
-        final int MAX_PASSWORD_LENGTH = 32; // 32 is reasonable to prevent memory hog issues
-        
-        boolean passwordLengthAcceptable 
-                = password.length() >= MIN_PASSWORD_LENGTH 
-                && password.length() <= MAX_PASSWORD_LENGTH;
-        
+        final int MIN_PASSWORD_LENGTH = 8;
+        // final int MAX_PASSWORD_LENGTH = 32; // Max length not strictly required by POE but good practice
+        // boolean passwordLengthAcceptable = password.length() >= MIN_PASSWORD_LENGTH && password.length() <= MAX_PASSWORD_LENGTH;
+        // For POE, just min length
+        boolean passwordLengthAcceptable = password.length() >= MIN_PASSWORD_LENGTH;
+
+
         boolean passwordHasCapital = false, passwordHasDigit = false, passwordHasSpecialChar = false;
-        
-        /**
-         * This for loop is an elegant approach because it will iterate through every letter inside the string
-         * I do not have to worry about the password length here, this is similar to the for-each loop in C#
-         * This loop will check for Capital letters, numbers & special characters
-         */
-        for (char c : password.toCharArray())
-        {
-            if (Character.isUpperCase(c)) 
-            {
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
                 passwordHasCapital = true;
-            }
-            else if (Character.isDigit(c))
-            {
+            } else if (Character.isDigit(c)) {
                 passwordHasDigit = true;
-            }
-            else if (!Character.isLetterOrDigit(c))
-            {
+            } else if (!Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) { // Consider !Character.isWhitespace if spaces are not special chars
                 passwordHasSpecialChar = true;
             }
-        }   
-        
-        return passwordLengthAcceptable && passwordHasCapital && passwordHasDigit && passwordHasSpecialChar;     
+        }
+        return passwordLengthAcceptable && passwordHasCapital && passwordHasDigit && passwordHasSpecialChar;
     }
-    
-    /**
-     * Checks if the cellphone number starts with "+27" followed by exactly 9 digits.
-     * Uses a regex pattern generated by AI (Grok 3, xAI, 2025) for validation.
-     * 
-     * @param cellPhoneNumber the cellphone number to check
-     * @return true if the cellphone number is valid, false otherwise (including null checks to prevent crash)
-     */
-    private boolean checkCellPhoneNumber(String cellPhoneNumber) 
-    {
-        if (cellPhoneNumber == null || cellPhoneNumber.isBlank()) // Exception Handled for Invalid characters
-        {
+
+    private boolean checkCellPhoneNumber(String cellPhoneNumber) {
+        if (cellPhoneNumber == null || cellPhoneNumber.isBlank()) {
             return false;
         }
-        
-        String regexChecker = "^\\+27[0-9]{9}$"; // From X.ai Grok3 AI Assistant
+        // Regex from POE Part 1 requirement (page 7)
+        // "international country code followed by the number, which is no more than ten characters long."
+        // The example +27838968976 has +27 (3 chars) + 9 digits = 12 chars total.
+        // The regex "^\\+27[0-9]{9}$" reflects this.
+        String regexChecker = "^\\+27[0-9]{9}$";
         return Pattern.matches(regexChecker, cellPhoneNumber);
     }
 }

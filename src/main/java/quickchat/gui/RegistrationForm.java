@@ -213,7 +213,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
         jTextArea1.setRows(5);
-        jTextArea1.setText("Welcome to QuickChat v2!\n\nPlease create a new account\nby entering your credentials.");
+        jTextArea1.setText("Welcome to QuickChat v1!\n\nPlease create a new account\nby entering your credentials.");
         jTextArea1.setFocusable(false);
         jScrollPane3.setViewportView(jTextArea1);
 
@@ -232,7 +232,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(138, Short.MAX_VALUE)
+                .addContainerGap(148, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,43 +276,35 @@ public class RegistrationForm extends javax.swing.JFrame {
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
        
-        // Collect raw input from GUI fields
+    // 1. Collect raw input from GUI fields correctly
     String username = usernameField.getText();
-    String password = new String(passwordField.getPassword());
+    String password = new String(passwordField.getPassword()); // Correct way to get password
     String cellphone = cellphoneField.getText();
     String firstName = firstnameField.getText();
     String lastName = lastnameField.getText();
 
-    // Pass inputs to registerUser for validation and messaging
+    // 2. Pass string inputs to registerUser for validation and messaging
+    // This returns a 6-element array from the modified Registration.java
     String[] result = REGISTRATION.registerUser(username, password, cellphone, firstName, lastName);
 
-    // Check if registration was fully successful using getters and final message
-    boolean allCaptured = REGISTRATION.getUserName() != null &&
-                         REGISTRATION.getPassword() != null &&
-                         REGISTRATION.getCellPhoneNumber() != null &&
-                         REGISTRATION.getFirstName() != null &&
-                         REGISTRATION.getLastName() != null &&
-                         result.length == 1 && "You have been successfully registered".equals(result[0]);
+    // 3. Check if registration was fully successful SOLELY by looking at result[5].
+    // Using the literal string for clarity here.
+    // Ensure Registration.java's registerUser method sets result[5] to exactly this string on success.
+    boolean registrationWasSuccessful = (result.length == 6 && "Registration successful".equals(result[5]));
 
-    // Display all messages (success or errors + final status)
-    StringBuilder feedback = new StringBuilder();
-    for (String message : result) 
-    {
-        feedback.append(message).append("\n");
-    }
+    // 4. Display all 6 messages (field-specific + overall status)
+    String feedback = String.join("\n", result); // This will combine all 6 messages
 
-    if (allCaptured)
-    {
-        // Show success dialog and switch forms
-        JOptionPane.showMessageDialog(this, feedback, "Registration Successful", JOptionPane.INFORMATION_MESSAGE);
+    if (registrationWasSuccessful) {
+        // Show success dialog (which now includes all 6 messages) and switch forms
+        JOptionPane.showMessageDialog(this, feedback, "Registration Status", JOptionPane.INFORMATION_MESSAGE);
         QUICK_CHAT.showLoginForm(); // Show LoginForm
         this.dispose();             // Close RegistrationForm after dialog
-    }
-    else
-    {
-        // Show feedback dialog with errors
+    } else {
+        // Show feedback dialog with all 6 messages (which will include errors and "Registration aborted...")
         JOptionPane.showMessageDialog(this, feedback, "Registration Failed", JOptionPane.ERROR_MESSAGE);
     }
+
         
     }//GEN-LAST:event_registerButtonActionPerformed
 

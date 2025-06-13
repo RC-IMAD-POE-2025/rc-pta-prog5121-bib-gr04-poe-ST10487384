@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: quickchat.core.LoginTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.195 s -- in quickchat.core.LoginTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.211 s -- in quickchat.core.LoginTest
